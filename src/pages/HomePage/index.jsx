@@ -7,6 +7,11 @@ import { ProductList } from "../../components/ProductList";
 export const HomePage = () => {
    const [productList, setProductList] = useState([]);
    const [cartList, setCartList] = useState([]);
+   const [isOpen, setIsOpen] = useState(false);
+
+   const toggleModal = () => {
+      setIsOpen(!isOpen);
+   }
 
    useEffect(() => {
       const getProducts = async () => {
@@ -18,6 +23,12 @@ export const HomePage = () => {
       getProducts();
    }, [])
 
+   useEffect(() => {
+      isOpen ? document.body.classList.add('modal-open') :
+         document.body.classList.remove('modal-open')
+   }, [isOpen]);
+
+
    // useEffect montagem - carrega os produtos da API e joga em productList
    // useEffect atualização - salva os produtos no localStorage (carregar no estado)
    // adição, exclusão, e exclusão geral do carrinho
@@ -27,10 +38,15 @@ export const HomePage = () => {
 
    return (
       <>
-         <Header />
+         <Header onClick={toggleModal} />
          <main>
             <ProductList productList={productList} />
-            {/* <CartModal cartList={cartList} /> */}
+            {isOpen &&
+               <CartModal
+                  cartList={cartList}
+                  onClick={toggleModal}
+               />
+            }
          </main>
       </>
    );

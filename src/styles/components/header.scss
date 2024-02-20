@@ -10,7 +10,31 @@ header {
     justify-content: space-between;
     width: 100%;
     max-width: 77rem;
+    .header__cart {
+      display: flex;
+      align-items: center;
+      width: 36px;
+      height: 39px;
+      button{
+        background-color: variables.$grey-0;
+        border: none;
+        color: variables.$grey-400;
+        position: relative;
+        span {
+          position: absolute;
+          top: -15px;
+          left: 12px;
+          color: #FFF;
+          width: 20px;
+          height: 24px;
+          background-color: variables.$color-primary;
+          border-radius: 7px;
+          padding: 4px;
+        }
+      }
+    }
   }
+
 }
 
 @media screen and (min-width: 768px){
