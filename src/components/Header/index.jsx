@@ -7,13 +7,14 @@ export const Header = () => {
 
    return (
       <header>
-         <img src={Logo} alt="Logo Kenzie Burguer" />
-         <div>
-            <button>
-                <MdShoppingCart size={21} />
-                <span>0</span>
-            </button>
-            <form>
+         <div className="header__container">
+            <img src={Logo} alt="Logo Kenzie Burguer" />
+            <div>
+               <button>
+                  <MdShoppingCart size={21} />
+                  <span>0</span>
+               </button>
+               {/* <form>
                <input
                   type="text"
                   value={value}
@@ -22,8 +23,10 @@ export const Header = () => {
                <button type="submit">
                  <MdSearch size={21} />
                </button>
-            </form>
+            </form> */}
+            </div>
          </div>
       </header>
+
    );
 };
