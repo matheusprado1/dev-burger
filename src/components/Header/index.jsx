@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Logo from "../../assets/Logo.svg";
 import { MdSearch, MdShoppingCart } from "react-icons/md";
 
 export const Header = ({ onClick, cartList }) => {
@@ -10,7 +9,7 @@ export const Header = ({ onClick, cartList }) => {
    return (
       <header>
          <div className="header__container">
-            <img src={Logo} alt="Logo Kenzie Burguer" />
+            <h2>Burger <span>Dev</span></h2>
             <div className="header__cart">
                <button onClick={onClick}>
                   <MdShoppingCart size={25} />

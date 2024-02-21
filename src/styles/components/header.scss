@@ -10,6 +10,16 @@ header {
     justify-content: space-between;
     width: 100%;
     max-width: 77rem;
+    h2 {
+      font-size: variables.$heading-1;
+      color: variables.$grey-600;
+      word-spacing: -2px;
+      cursor: default;
+      span {
+        font-size: variables.$heading-2;
+        color: variables.$color-primary;
+      }
+    }
     .header__cart {
       display: flex;
       align-items: center;
