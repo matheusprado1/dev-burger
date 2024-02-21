@@ -1,10 +1,13 @@
 import { ProductCard } from "./ProductCard";
 
-export const ProductList = ({ productList }) => {
+export const ProductList = ({ productList, addToCart }) => {
    return (
       <ul className="products__container">
-         {productList.map((product) => (
-            <ProductCard key={product.id} product={product} />
+         {productList.map((product, index) => (
+            <ProductCard key={product.id}
+               product={product}
+               addToCart={() => addToCart(index)}
+            />
          ))}
       </ul>
    );

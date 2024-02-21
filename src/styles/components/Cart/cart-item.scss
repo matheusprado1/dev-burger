@@ -1,0 +1,21 @@
+.cart__card__item {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  width: 100%;
+  img {
+    object-fit: cover;
+    width: 55px;
+    height: 53px;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    .cart__img__container {
+      background-color: variables.$grey-100;
+      width: 82px;
+      height: 80px;
+      padding: 10px;
+    }
+  }
+}

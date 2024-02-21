@@ -7,44 +7,69 @@ import { ProductList } from "../../components/ProductList";
 export const HomePage = () => {
    const [productList, setProductList] = useState([]);
    const [cartList, setCartList] = useState([]);
-   const [isOpen, setIsOpen] = useState(false);
+   const [cartModalIsOpen, cartModalSetIsOpen] = useState(false);
 
    const toggleModal = () => {
-      setIsOpen(!isOpen);
+      cartModalSetIsOpen(!cartModalIsOpen);
    }
+
+   const addToCart = (index) => {
+      const selectedProduct = productList[index];
+      setCartList(oldCartList => {
+         const newCartList = [...oldCartList, selectedProduct];
+         localStorage.setItem("cart", JSON.stringify(newCartList));
+         return newCartList;
+      });
+   }
+
+   const removeProductFromCart = (index) => {
+      setCartList(oldCartList => {
+         const updatedCartList = oldCartList.filter((item, i) => i !== index);
+         localStorage.setItem("cart", JSON.stringify(updatedCartList));
+         return updatedCartList;
+      });
+   }
+
+   const removeAllProductsFromCart = () => {
+      setCartList([])
+      localStorage.setItem("cart", [])
+   }
+
+   // Carregar dados do localStorage no início
+   useEffect(() => {
+      const savedCart = localStorage.getItem("cart");
+      if (savedCart) {
+         setCartList(JSON.parse(savedCart));
+      }
+   }, []);
 
    useEffect(() => {
       const getProducts = async () => {
          const { data } = await api.get("/products");
-         console.log(data);
          setProductList(data);
-
       }
       getProducts();
-   }, [])
+   }, []);
 
    useEffect(() => {
-      isOpen ? document.body.classList.add('modal-open') :
-         document.body.classList.remove('modal-open')
-   }, [isOpen]);
-
-
-   // useEffect montagem - carrega os produtos da API e joga em productList
-   // useEffect atualização - salva os produtos no localStorage (carregar no estado)
-   // adição, exclusão, e exclusão geral do carrinho
-   // renderizações condições e o estado para exibir ou não o carrinho
-   // filtro de busca
-   // estilizar tudo com sass de forma responsiva
+      cartModalIsOpen ? document.body.classList.add('modal-open')
+         : document.body.classList.remove('modal-open')
+   }, [cartModalIsOpen]);
 
    return (
       <>
-         <Header onClick={toggleModal} />
+         <Header onClick={toggleModal} cartList={cartList} />
          <main>
-            <ProductList productList={productList} />
-            {isOpen &&
+            <ProductList
+               productList={productList}
+               addToCart={addToCart}
+            />
+            {cartModalIsOpen &&
                <CartModal
                   cartList={cartList}
                   onClick={toggleModal}
+                  removeProductFromCart={removeProductFromCart}
+                  removeAllProductsFromCart={removeAllProductsFromCart}
                />
             }
          </main>

@@ -28,9 +28,15 @@
     }
   }
   .cart__content {
-    padding-top: 10px;
+    padding: 10px;
     height: 40%;
-    
+    overflow: auto;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
   }
   .cart__total {
     display: flex;

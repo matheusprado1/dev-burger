@@ -2,8 +2,9 @@ import { useState } from "react";
 import Logo from "../../assets/Logo.svg";
 import { MdSearch, MdShoppingCart } from "react-icons/md";
 
-export const Header = ({ onClick }) => {
+export const Header = ({ onClick, cartList }) => {
    const [value, setValue] = useState("");
+
 
 
    return (
@@ -13,7 +14,7 @@ export const Header = ({ onClick }) => {
             <div className="header__cart">
                <button onClick={onClick}>
                   <MdShoppingCart size={25} />
-                  <span>0</span>
+                  <span>{cartList.length}</span>
                </button>
                {/* <form>
                <input
