@@ -43,6 +43,11 @@
     flex-direction: column;
     gap: 20px;
     padding: 15px;
+    .total {
+      font-weight: variables.$semi-bold;
+      font-size: variables.$body;
+      color: variables.$grey-300;
+    }
 
     &::before {
       content: "";
@@ -67,6 +72,11 @@
   .total__container {
     display: flex;
     justify-content: space-between;
+    span {
+      color: variables.$grey-600;
+      font-weight: variables.$semi-bold;
+      font-size: variables.$body;
+    }
   }
   .cart__empty {
     width: 100%;

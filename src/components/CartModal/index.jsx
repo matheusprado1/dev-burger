@@ -34,7 +34,7 @@ export const CartModal = ({ cartList, onClick, removeProductFromCart, removeAllP
             <div className="cart__total">
                <div className="total__container">
                   <span>Total</span>
-                  <span>{total.toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}</span>
+                  <span className="total">{total.toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}</span>
                </div>
                <button onClick={() => removeAllProductsFromCart()}>Remover todos</button>
             </div>
