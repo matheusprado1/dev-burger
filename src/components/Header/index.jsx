@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { MdSearch, MdShoppingCart } from "react-icons/md";
 
-export const Header = ({ onClick, cartList }) => {
-   const [value, setValue] = useState("");
+export const Header = ({ onClick, cartList, onSearch }) => {
+   const { register, handleSubmit } = useForm();
+
+   const submit = (formData) => {
+      onSearch(formData.product)
+   }
 
 
 
@@ -15,16 +19,12 @@ export const Header = ({ onClick, cartList }) => {
                   <MdShoppingCart size={25} />
                   <span>{cartList.length}</span>
                </button>
-               {/* <form>
-               <input
-                  type="text"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-               />
-               <button type="submit">
-                 <MdSearch size={21} />
-               </button>
-            </form> */}
+               <form className="search__container" onSubmit={handleSubmit(submit)}>
+                  <input type="text" {...register("product")} />
+                  <button type="submit">
+                     <MdSearch size={21} />
+                  </button>
+               </form>
             </div>
          </div>
       </header>

@@ -8,19 +8,28 @@ export const HomePage = () => {
    const [productList, setProductList] = useState([]);
    const [cartList, setCartList] = useState([]);
    const [cartModalIsOpen, cartModalSetIsOpen] = useState(false);
+   const [filteredProductList, setFilteredProductList] = useState([]);
+
+   const handleSearch = (searchTerm) => {
+      const filteredProducts = productList.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase())
+
+      );
+      setFilteredProductList(filteredProducts)
+   }
 
    const toggleModal = () => {
       cartModalSetIsOpen(!cartModalIsOpen);
    }
 
    const addToCart = (index) => {
-      const selectedProduct = productList[index];
+      const selectedProduct = filteredProductList.length > 0 ? filteredProductList[index] : productList[index];
       setCartList(oldCartList => {
          const newCartList = [...oldCartList, selectedProduct];
          localStorage.setItem("cart", JSON.stringify(newCartList));
          return newCartList;
       });
    }
+
 
    const removeProductFromCart = (index) => {
       setCartList(oldCartList => {
@@ -58,10 +67,14 @@ export const HomePage = () => {
 
    return (
       <>
-         <Header onClick={toggleModal} cartList={cartList} />
+         <Header
+            onClick={toggleModal}
+            cartList={cartList}
+            onSearch={handleSearch}
+         />
          <main>
             <ProductList
-               productList={productList}
+               productList={filteredProductList.length > 0 ? filteredProductList : productList}
                addToCart={addToCart}
             />
             {cartModalIsOpen &&
