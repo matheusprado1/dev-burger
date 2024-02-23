@@ -1,14 +1,18 @@
+import { forwardRef } from "react";
 import { MdClose } from "react-icons/md";
 import { CartItemCard } from "./CartItemCard";
 
-export const CartModal = ({ cartList, onClick, removeProductFromCart, removeAllProductsFromCart }) => {
+export const CartModal = forwardRef((props, ref) => {
+
+   const { cartList, onClick, removeProductFromCart, removeAllProductsFromCart } = props;
+
    const total = cartList.reduce((prevValue, product) => {
       return prevValue + product.price;
    }, 0);
 
    return (
-      <div className="modal-backdrop">
-         <div className="cart__container" role="dialog">
+      <div className="modal-backdrop" >
+         <div className="cart__container" role="dialog" ref={ref}>
             <div className="cart__header">
                <h2>Carrinho de compras</h2>
                <button aria-label="close" title="Fechar" onClick={onClick}>
@@ -17,7 +21,6 @@ export const CartModal = ({ cartList, onClick, removeProductFromCart, removeAllP
             </div>
             <div className="cart__content">
                <ul>
-
                   {cartList.length > 0 ? cartList.map((product, index) => (
                      <CartItemCard key={index}
                         product={product}
@@ -40,6 +43,5 @@ export const CartModal = ({ cartList, onClick, removeProductFromCart, removeAllP
             </div>
          </div>
       </div>
-
    );
-};
+});

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import useEscapeKey from "../../hooks/useEscapeKey";
+import useOutsideCLick from "../../hooks/useOutsideClick";
 import { api } from "../../services/api";
 import { CartModal } from "../../components/CartModal";
 import { Header } from "../../components/Header";
@@ -7,18 +9,26 @@ import { ProductList } from "../../components/ProductList";
 export const HomePage = () => {
    const [productList, setProductList] = useState([]);
    const [cartList, setCartList] = useState([]);
-   const [cartModalIsOpen, cartModalSetIsOpen] = useState(false);
+   const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
    const [filteredProductList, setFilteredProductList] = useState([]);
+   const ref = useRef();
+
+   useOutsideCLick(ref, () => {
+      if (cartModalIsOpen) setCartModalIsOpen(false);
+   })
+
+   useEscapeKey(() => {
+      if (cartModalIsOpen) setCartModalIsOpen(false);
+   })
+
+   const toggleModal = () => {
+      setCartModalIsOpen(!cartModalIsOpen);
+   }
 
    const handleSearch = (searchTerm) => {
       const filteredProducts = productList.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase())
-
       );
       setFilteredProductList(filteredProducts)
-   }
-
-   const toggleModal = () => {
-      cartModalSetIsOpen(!cartModalIsOpen);
    }
 
    const addToCart = (index) => {
@@ -79,6 +89,7 @@ export const HomePage = () => {
             />
             {cartModalIsOpen &&
                <CartModal
+                  ref={ref}
                   cartList={cartList}
                   onClick={toggleModal}
                   removeProductFromCart={removeProductFromCart}
